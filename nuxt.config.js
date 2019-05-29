@@ -1,14 +1,13 @@
 const Articls = require('./static/json/article.json');
+import outputStaticDataBeforeBuild from './modules/createStaticJson';
 
 module.exports = {
-  modules: [
-    '~/modules/createStaticJson.js',
-  ],
   generate: {
-    routes() {
+    async routes() {
+      await outputStaticDataBeforeBuild();
       return Articls.items.map(i => {
         return `articles/${i.fields.id}`;
-      })
+      });
     }
   },
   /*
